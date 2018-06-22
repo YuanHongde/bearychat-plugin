@@ -4,6 +4,11 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import org.apache.commons.lang.StringUtils;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.StaplerRequest;
+
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.Launcher;
@@ -18,10 +23,6 @@ import hudson.tasks.Publisher;
 import hudson.util.FormValidation;
 import jenkins.model.JenkinsLocationConfiguration;
 import net.sf.json.JSONObject;
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
 
 public class BearyChatNotifier extends Notifier {
 
@@ -126,6 +127,7 @@ public class BearyChatNotifier extends Notifier {
         this.customEndMessage = customEndMessage;
     }
 
+    @Override
     public BuildStepMonitor getRequiredMonitorService() {
         return BuildStepMonitor.NONE;
     }
@@ -203,6 +205,7 @@ public class BearyChatNotifier extends Notifier {
             }
         }
 
+        @Override
         public boolean isApplicable(Class<? extends AbstractProject> aClass) {
             return true;
         }
@@ -248,7 +251,7 @@ public class BearyChatNotifier extends Notifier {
 
         @Override
         public String getDisplayName() {
-            return "BearyChat Notifications";
+            return "Rocket.Chat Notifications";
         }
 
         public FormValidation doTestConnection(@QueryParameter("webhook") final String webhook,
