@@ -107,8 +107,7 @@ public class StandardBearyChatService implements BearyChatService {
     }
 
     public String getPostUrl() {
-        // Adding version in QueryString for statistic.
-        return webhook + "?v=" + VERSION;
+        return webhook;
     }
 
     protected HttpClient getHttpClient() {
@@ -119,12 +118,8 @@ public class StandardBearyChatService implements BearyChatService {
             client.getHostConfiguration().setProxy(proxy.name, proxy.port);
             String username = proxy.getUserName();
             String password = proxy.getPassword();
-            // Consider it to be passed if username specified. Sufficient?
             if (username != null && !"".equals(username.trim())) {
                 logger.info("Using proxy authentication (user=" + username + ")");
-                // http://hc.apache.org/httpclient-3.x/authentication.html#Proxy_Authentication
-                // and
-                // http://svn.apache.org/viewvc/httpcomponents/oac.hc3x/trunk/src/examples/BasicAuthenticationExample.java?view=markup
                 client.getState().setProxyCredentials(AuthScope.ANY,
                         new UsernamePasswordCredentials(username, password));
             }
